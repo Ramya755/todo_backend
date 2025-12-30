@@ -3,15 +3,30 @@ import 'dart:convert';
 
 import 'package:todo_backend/model.dart';
 Future<void> fetchapidata() async{
+  print("entered into the fectch");
   final url=Uri.parse("http://localhost:8000/api/all");
+
   final res= await http.get(url);
+  
   if (res.statusCode==200){
+
     //my data is a overall map so i decode it from json.
+
+
     final Map<String,dynamic> decoded=json.decode(res.body);
+
+
     //inside map i have list named as data so i decode that one too.
+
+
      final List<dynamic> jsonList =decoded["data"];
+
+
      //now i have list of maps that is i mentioned as apidata.
+
+
      final List<Map<String,dynamic>> apidata =List<Map<String,dynamic>>.from(jsonList);
+
      // now i use to previously writed function to store apidata into my db named list to acess it.
      filldbtoapi(apidata);
   }
