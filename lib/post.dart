@@ -3,7 +3,6 @@ import 'dart:convert';
 
 Future<void> Addd(String title, String description,String endDate) async {
   final url = Uri.parse("http://localhost:8000/api/add");
-  print("url cleared");
 
   final response = await http.post(   
     url,
@@ -15,8 +14,4 @@ Future<void> Addd(String title, String description,String endDate) async {
     }),
     headers: {"Content-Type": "application/json"},
   );
-
-  print("STATUS CODE: ${response.statusCode}"); 
-  print("RESPONSE BODY: ${response.body}");     
-  print("finihed");
 }
