@@ -28,7 +28,22 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 169, 179, 238),
-      appBar: AppBar(title: Text("ToDo")),
+      appBar: AppBar(
+  elevation: 2,
+  backgroundColor: Colors.white,
+  centerTitle: true,
+  title: AnimatedDefaultTextStyle(
+    duration: const Duration(milliseconds: 600),
+    style: const TextStyle(
+      fontSize: 22,
+      fontWeight: FontWeight.bold,
+      color: Colors.black87,
+      letterSpacing: 0.6,
+    ),
+    child: const Text("My Notes"),
+  ),
+),
+
       body: loading ? const Center(child: CircularProgressIndicator()) : Plan(),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {

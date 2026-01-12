@@ -13,55 +13,81 @@ class _PlanState extends State<Plan> {
   @override
   void initState() {
     super.initState();
-    //here i am fetching api data and sending into db that is list i created
     fetchapidata().then((_){
-      setState(() {
-        
-      });
+      setState(() {});
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    if (db.isEmpty){
-      return Center(child: CircularProgressIndicator());
+    if (db.isEmpty) {
+      return const Center(child: CircularProgressIndicator());
     }
+
     return ListView.builder(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(12),
       itemCount: db.length,
       itemBuilder: (BuildContext context, int index) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    db[index].title,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    db[index].description,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                ],
-              ),
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 16),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 600),
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white, // 🔷 note background
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [ // 🔷 professional note shadow
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 8,
+                  offset: Offset(0, 4),
+                ),
+              ],
             ),
-            SizedBox(height: 20),
-          ],
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+
+                // 🔷 TITLE SECTION
+                Row(
+                  children: [
+                    const Icon(Icons.edit_note, color: Colors.deepPurple), // 🔷 symbol
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        db[index].title,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 0.4,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 10),
+
+                // 🔷 Divider between title & description
+                Divider(
+                  thickness: 1,
+                  color: Colors.grey.shade300,
+                ),
+
+                const SizedBox(height: 10),
+
+                // 🔷 DESCRIPTION SECTION
+                Text(
+                  db[index].description,
+                  style: TextStyle(
+                    fontSize: 16,
+                    height: 1.5,
+                    color: Colors.grey.shade700,
+                  ),
+                ),
+              ],
+            ),
+          ),
         );
       },
     );
